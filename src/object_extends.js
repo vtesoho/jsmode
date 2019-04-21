@@ -1,5 +1,5 @@
 class Person{
-  constructor(name, age){
+  construtor(name, age){
     this.name = name
     this.age = age
   }
@@ -12,17 +12,16 @@ class Person{
 }
 
 class Student extends Person{
-  constructor(name,age,number) {
+  construtor(name,age,number) {
     super(name,age)
     this.number = number
   }
   study() {
-    console.log(`sdfd ${this.name} study`)
+    console.log(`${this.name} study`)
   }
 }
 
-let xiaoming = new Student('xiaoming', 22, 'A2')
+let xiaoming - new Stuent('xiaoming', 22, 'A1')
+xiaoming.study()
 xiaoming.eat()
 xiaoming.speak()
-xiaoming.study()
-console.log(`number ${xiaoming.number}`)

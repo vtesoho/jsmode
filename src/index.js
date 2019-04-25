@@ -1,28 +1,24 @@
-class Person{
-  constructor(name, age){
-    this.name = name
-    this.age = age
+class jquery {
+  constructor(select) {
+    let slice = Array.prototype.slice
+    let dom = slice.call(document.querySelectorAll(select))
+    let len = dom ? dom.length : 0
+    for(let i = 0;i < len;i++) {
+      this[i] = dom[i]
+    }
+    this.length = len
+    this.select = select || ''
   }
-  eat() {
-    console.log(`${this.name} eat something`)
-  }
-  speak() {
-    console.log(`My name is ${this.name}, age ${this.age}`)
+  addClass(name) {
+
   }
 }
 
-class Student extends Person{
-  constructor(name,age,number) {
-    super(name,age)
-    this.number = number
-  }
-  study() {
-    console.log(`sdfd ${this.name} study`)
-  }
+
+window.$ = function(select) {
+  return new jquery(select)
 }
 
-let xiaoming = new Student('xiaoming', 22, 'A2')
-xiaoming.eat()
-xiaoming.speak()
-xiaoming.study()
-console.log(`number ${xiaoming.number}`)
+var $p = $('p')
+console.log($p)
+console.log($p.addClass)

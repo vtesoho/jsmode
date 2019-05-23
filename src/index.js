@@ -1,25 +1,41 @@
-function loadImg(src) {
-  let promise = new Promise(function(resolve,reject) {
-    let img = document.createElement('img')
-    img.onload = () => {
-      resolve(img)
+class LoginForm {
+  constructor(){
+    this.state = 'hide'
+  }
+  show(){
+    if(this.statee === 'show'){
+      console.log('已显示 ')
+      return
     }
-    img.onerror = () => {
-      reject('图片加载失败')
+    this.state = 'show'
+    console.log('已经显示成功')
+  }
+  hide(){
+    if(this.state === 'hide') {
+      console.log('已经隐藏')
     }
-    img.src = src
-  })
-  return promise
+    this.state = 'hide'
+    console.log('隐藏成功')
+  }
 }
 
-let src = 'https://www.baidu.com/img/bd_logo1.png?where=super'
-let result = loadImg(src)
+LoginForm.getInstance = (function() {
+  let instance
+  return function(){
+    if(!instance){
+      instance = new LoginForm()
+    }
+    return instance
+  }
+})()
 
-result.then((img) => {
-  console.log(`width: ${img.width}`)
-  return img
-}).then((img) => {
-  console.log(`height: ${img.height}`)
-}).catch((e) => {
-  console.log(e)
-})
+//测试
+
+let login1 = LoginForm.getInstance()
+login1.show()
+
+let login2 = LoginForm.getInstance()
+login2.hide()
+
+console.log('login1 === login2', login1 === login2)
+

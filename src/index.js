@@ -1,25 +1,22 @@
-class Product {
-  constructor(name) {
-    this.name = name
-  }
-  init(){
-    console.log('init')
-  }
-  fn1(){
-    console.log('fn1')
-  }
-  fn2(){
-    console.log('fn2')
+class Adaptee {
+  specificRequest(){
+    return '德国标准插头'
   }
 }
 
-class Creator{
-  create(name) {
-    return new Product(name)
+class Target {
+  constructor (){
+    this.adaptee = new Adaptee()
+  }
+  request (){
+    let info = this.adaptee.specificRequest()
+    return `${info} - 转换器 - 中国标准插头`
   }
 }
 
-let creator = new Creator()
-let p = creator.create('p1')
-p.init()
-p.fn1()
+let target = new Target()
+let res = target.request()
+console.log(res)
+
+
+

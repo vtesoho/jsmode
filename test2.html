@@ -32,13 +32,14 @@
       
     // })
     //用代理的方式解决this指向问题
-    $("#div1").click(function(){
-      var fn = function(){
-        $(this).css('background-color','blue')
-      }
-      fn = $.proxy(fn,this)
-      setTimeout(fn, 1000)
-    })
+    // $("#div1").click(function(){
+    //   var fn = function(){
+    //     $(this).css('background-color','blue')
+    //   }
+    //   fn = $.proxy(fn,this)
+    //   setTimeout(fn, 1000)
+    // })
+    
   </script>
 </body>
 </html>

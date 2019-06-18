@@ -1,44 +1,34 @@
-let star = {
-  name: '李xx',
-  age: 22,
-  phone: 'star13311112222',
-  privacy: '明星的艳照',
-}
-//经纪人
-let agent = new Proxy(star, {
-  get: function(target, key) {
-    if(key === 'phone'){
-      return 'agent13344445555'
-    }
-    if(key === 'price'){
-      return 120000
-    }
-    if(key === 'privacy'){
-      return '经纪人不可能给你看'
-    }
-    return target[key]
-  },
-  set: function(target, key, val) {
-    if(key === 'customPrice'){
-      if(val < 100000){
-        throw new Error('价格太低')
-      }else {
-        target[key] = val
-        return true
-      }
-    }
+class Business {
+  constructor(name){
+    this.name = name
   }
-})
+  approve(){
+    console.log(`${this.name} 办理工商营业执照`)
+  }
+}
 
+class Tax {
+  constructor(name){
+    this.name = name
+  }
+  approve(){
+    console.log(`${this.name} 办理税务证`)
+  }
+}
 
-console.log(agent.name)
-console.log(agent.age)
-console.log(agent.phone)
-console.log(agent.privacy)
-console.log(agent.price)
-agent.customPrice = 150000
-console.log(agent.customPrice)
+class Facade{
+  constructor(name){
+    this.name = name
+  }
+  start(){
+    console.log(`${this.name} 开始办理手续`)
+    let ic = new Business(this.name)
+    let tax = new Tax(this.name)
+    ic.approve()
+    tax.approve()
+    console.log(`${this.name} 各种手续办理完毕`)
+  }
+}
 
-
-agent.customPrice = 90000
-console.log(agent.customPrice)
+let state = new Facade('张三')
+state.start()

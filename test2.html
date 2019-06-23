@@ -14,31 +14,18 @@
   </div>
   <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
   <script>
-    // var div1 = document.getElementById('div1')
-    // div1.addEventListener('click', function(e) {
-    //   //console.log(e)
-    //   var target = e.target
-    //   if(target.nodeName === 'A'){
-    //     console.log(target.innerHTML)
-    //   }
-    // })
-    //用闭包的方式解决this指向问题
-    // $("#div1").click(function(){
-    //   var _this = this
-    //   setTimeout(function(){
-    //     console.log(_this)
-    //     $(_this).css('background-color','blue')
-    //   }, 1000)
-      
-    // })
-    //用代理的方式解决this指向问题
-    // $("#div1").click(function(){
-    //   var fn = function(){
-    //     $(this).css('background-color','blue')
-    //   }
-    //   fn = $.proxy(fn,this)
-    //   setTimeout(fn, 1000)
-    // })
+    var callbacks = $.Callbacks()
+    callbacks.add(function(info) {
+      console.log('fn1',info)
+    })
+    callbacks.add(function(info) {
+      console.log('fn2',info)
+    })
+    callbacks.add(function(info) {
+      console.log('fn3',info)
+    })
+    callbacks.fire('gogogo')
+    callbacks.fire('fire')
     
   </script>
 </body>

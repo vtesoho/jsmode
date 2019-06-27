@@ -1,78 +1,66 @@
-class Subject{
-  constructor(){
-    this.state = 0
-    this.observers = []
-  }
-  getState(){
-    return this.state
-  }
-  setState(state){
-    this.state = state
-    this.notifyAllobservers()
-  }
-  notifyAllobservers(){
-    this.observers.forEach(observer => {
-      observer.updata()
-    })
-  }
-  attach(observer){
-    this.observers.push(observer)
+// class Iterator{
+//   constructor(container){
+//     this.list = container.list
+//     this.index = 0
+//   }
+//   next() {
+//     if(this.hasNext()) {
+//       return this.list[this.index++]
+//     }
+//   }
+//   hasNext(){
+//     if(this.index >= this.list.length){
+//       return false
+//     }
+//     return true
+//   }
+// }
+
+
+// class Container{
+//   constructor(list){
+//     this.list = list
+//   }
+//   getIterator(){
+//     return new Iterator(this)
+//   }
+// }
+
+// let arr = [1,2,3,4,5,6]
+// let container = new Container(arr)
+// let iterator = container.getIterator()
+// while(iterator.hasNext()) {
+//   console.log(iterator.next())
+// }
+
+
+
+
+function each(data){
+  // // 基础版本
+  // let iterator = data[Symbol.iterator]()
+
+  // let item = {done:false}
+  // while(!item.done){
+  //   item = iterator.next()
+  //   if(!item.done) {
+  //     console.log(item.value)
+  //   }
+  // }
+
+  //简化版本
+  for (const item of data) {
+    console.log(item)
   }
 }
 
-class Observer{
-  constructor(name,subject){
-    this.name = name
-    this.subject = subject
-    this.subject.attach(this)
-  }
-  updata(){
-    console.log(`${this.name} updata, state: ${this.subject.getState()}`)
-  }
-}
 
-let s = new Subject()
-let o1 = new Observer('01', s)
-let o2 = new Observer('02', s)
-let o3 = new Observer('03', s)
+let arr = [1,3,4,5,5,56]
+let nodeList = document.getElementsByTagName('p')
+let m = new Map()
+m.set('a',100)
+m.set('b',200)
 
-s.setState(1)
-s.setState(2)
-s.setState(3)
-
-
-function loadImg(src) {
-  var promise = new Promise(function(resolve,reject) {
-    var img = document.createElement('img')
-    img.onload = function(){
-      resolve(img)
-    }
-    img.onerror = function(){
-      reject('图片加载失败')
-    }
-    img.src = src
-  })
-  return promise
-}
-
-var src = 'https://www.baidu.com/img/bd_logo1.png'
-var result = loadImg(src)
-result.then(function (img) {
-  console.log('width', img.width)
-  return img
-}).then(function (img) {
-  console.log('height', img.height)
-})
-
-var callbacks = $.Callacks()
-callbacks.add(function(info) {
-  console.log('fn1',info)
-})
-callbacks.add(function(info) {
-  console.log('fn2',info)
-})
-callbacks.add(function(info) {
-  console.log('fn3',info)
-})
-callbacks.fire('gogogo')
-callbacks.fire('fire')
+each(nodeList)
+each(arr)
+each(m)

@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
 git add .
-git commit -m 'iterator'
+git commit -m 'status'
 
 git push origin master

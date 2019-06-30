@@ -1,66 +1,78 @@
-// class Iterator{
-//   constructor(container){
-//     this.list = container.list
-//     this.index = 0
-//   }
-//   next() {
-//     if(this.hasNext()) {
-//       return this.list[this.index++]
-//     }
-//   }
-//   hasNext(){
-//     if(this.index >= this.list.length){
-//       return false
-//     }
-//     return true
-//   }
-// }
+import StateMachine from 'javascript-state-machine'
 
+let fsm = new StateMachine({
+  init: 'pending',
+  transitions: [
+    {
+      name: 'resolve',
+      from: 'pending',
+      to: 'fullfilled'
+    },
+    {
+      name: 'reject',
+      from: 'pending',
+      to: 'rejected'
+    }
+  ],
+  methods: {
+    onResolve: function(state,data) {
+      data.succesList.forEach(fn => fn())
+    },
+    onReject: function(state,data) {
+      data.failList.forEach(fn => fn())
+    }
+  }
+})
 
-// class Container{
-//   constructor(list){
-//     this.list = list
-//   }
-//   getIterator(){
-//     return new Iterator(this)
-//   }
-// }
+class MyPromise{
+  constructor(fn) {
+    this.succesList = []
+    this.failList = []
+    fn(function (){
+      fsm.resolve(this)
 
-// let arr = [1,2,3,4,5,6]
-// let container = new Container(arr)
-// let iterator = container.getIterator()
-// while(iterator.hasNext()) {
-//   console.log(iterator.next())
-// }
+    },function(){
+      fsm.reject(this)
+    })
+    
+  }
+  then(succesFn,failFn){
+    this.succesList.push(succesFn)
+    this.failList.push(failFn)
 
-
-
-
-function each(data){
-  // // 基础版本
-  // let iterator = data[Symbol.iterator]()
-
-  // let item = {done:false}
-  // while(!item.done){
-  //   item = iterator.next()
-  //   if(!item.done) {
-  //     console.log(item.value)
-  //   }
-  // }
-
-  //简化版本
-  for (const item of data) {
-    console.log(item)
   }
 }
 
+function loadImg(src) {
+  const promise = new Promise(function (resolve,reject) {
+    let img = document.createElement('img')
+    img.onload = function(){
+      resolve(img)
+    }
+    img.onerror = function (){
+      reject()
+    }
+    img.src = src
+  })
+  return promise
+}
 
-let arr = [1,3,4,5,5,56]
-let nodeList = document.getElementsByTagName('p')
-let m = new Map()
-m.set('a',100)
-m.set('b',200)
+let src = 'http://192.168.1.1/img.png'
 
-each(nodeList)
-each(arr)
-each(m)
+let result = loadImg(src)
+
+result.then(function (){
+  console.log('ok1')
+},function (){
+  console.log('fail1')
+})
+
+result.then(function (){
+  console.log('ok2')
+},function (){
+  console.log('fail2')
+})
+
+
+
+

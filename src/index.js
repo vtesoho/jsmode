@@ -1,27 +1,46 @@
-var num = 0,i=0,a=0,arr = new Array(5)
-function dg(){
-  num = Math.floor(Math.random() * (2 - 32)) + 32
-  if(arr[a] === num &&  a < arr.length){
-    a++
-    dg()
-  }
-  if(arr[i] === undefined && i < arr.length){
-    arr[i] = num
-    a=0
-    i++
-    dg()
+// class User{
+//   constructor(type) {
+//     this.type = type
+//   }
+//   buy(){
+//     if(this.type === 'ordinary'){
+//       console.log('普通用户购买')
+//     }else if(this.type === 'member'){
+//       console.log('会员用户购买')
+//     }else if(this.type === 'vip'){
+//        console.log('vip 购买')
+//     }
+//   }
+// }
+
+// let u1 = new User('ordinary');
+// u1.buy()
+// let u2 = new User('member');
+// u2.buy()
+// let u3 = new User('vip');
+// u3.buy()
+
+class OrdinaryUser{
+  buy(){
+    console.log('普通用户购买')
   }
 }
 
-
-for (let index = 0; index < 10; index++) {
-  dg()
-  console.log(arr)
-
-  arr[0] = undefined
-  arr[1] = undefined
-  arr[2] = undefined
-  arr[3] = undefined
-  arr[4] = undefined
-  
+class MemberUser{
+  buy(){
+    console.log('会员用户购买')
+  }
 }
+
+class VipUser{
+  buy(){
+    console.log('VIp用户购买')
+  }
+}
+
+let u1 = new OrdinaryUser()
+u1.buy()
+let u2 = new MemberUser()
+u2.buy()
+let u3 = new VipUser()
+u3.buy()
